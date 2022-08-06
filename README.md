@@ -26,7 +26,7 @@ unzip lab08.zip
 
 ## Topics
 
-Consult this section if you need a refresher on the material for this lab. It's okay to skip directly to [the questions](https://inst.eecs.berkeley.edu/~cs61a/fa20/lab/lab08/#required-questions) and refer back here should you get stuck.
+Consult this section if you need a refresher on the material for this lab. It's okay to skip directly to the questions and refer back here should you get stuck.
 
 ### Linked Lists
 
