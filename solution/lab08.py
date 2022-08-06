@@ -7,7 +7,9 @@ def convert_link(link):
     >>> convert_link(Link.empty)
     []
     """
-    "*** YOUR CODE HERE ***"
+    if link is Link.empty:
+        return []
+    return [link.first] + convert_link(link.rest)
 
 
 def every_other(s):
@@ -27,7 +29,10 @@ def every_other(s):
     >>> singleton
     Link(4)
     """
-    "*** YOUR CODE HERE ***"
+    if s is Link.empty or s.rest is Link.empty:
+        return
+    s.rest = s.rest.rest
+    every_other(s.rest)
 
 
 def cumulative_mul(t):
@@ -39,8 +44,12 @@ def cumulative_mul(t):
     >>> t
     Tree(105, [Tree(15, [Tree(5)]), Tree(7)])
     """
-    "*** YOUR CODE HERE ***"
-
+    if t.is_leaf():
+        return
+    for b in t.branches:
+        cumulative_mul(b)
+        t.label *= b.label
+    
 
 def has_cycle(link):
     """Return whether link contains a cycle.
@@ -56,7 +65,14 @@ def has_cycle(link):
     >>> has_cycle(u)
     False
     """
-    "*** YOUR CODE HERE ***"
+    visited = []
+    while link is not Link.empty:
+        if link in visited:
+            return True
+        visited.append(link)
+        link = link.rest
+    return False
+
 
 def has_cycle_constant(link):
     """Return whether link contains a cycle.
@@ -69,7 +85,13 @@ def has_cycle_constant(link):
     >>> has_cycle_constant(t)
     False
     """
-    "*** YOUR CODE HERE ***"
+    slow, fast = link, link
+    while fast is not Link.empty and fast.rest is not Link.empty:
+        if fast.rest is slow or fast.rest.rest is slow:
+            return True
+        fast = fast.rest.rest
+        slow = slow.rest
+    return False
 
 
 def reverse_other(t):
@@ -85,7 +107,15 @@ def reverse_other(t):
     >>> t
     Tree(1, [Tree(8, [Tree(3, [Tree(5), Tree(4)]), Tree(6, [Tree(7)])]), Tree(2)])
     """
-    "*** YOUR CODE HERE ***"
+    if t.is_leaf():
+        return
+    i, j = 0, len(t.branches) - 1
+    while i <= j:
+        t.branches[i].label, t.branches[j].label = t.branches[j].label, t.branches[i].label
+        i , j = i + 1, j - 1
+    for b1 in t.branches:
+        for b2 in b1.branches:
+            reverse_other(b2) 
 
 
 class Link:
